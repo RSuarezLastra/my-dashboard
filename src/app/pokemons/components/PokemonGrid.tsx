@@ -11,12 +11,6 @@ export const PokemonGrid = ({ pokemons }: Props) => {
       {
         pokemons.map( pokemon => (
           <div key={pokemon.id}>
-            {/* <Image
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/${id}.png`}
-              alt={name}
-              width={100}
-              height={100}
-            /> */}
             <PokemonCard {...pokemon} />
           </div>
         ))
