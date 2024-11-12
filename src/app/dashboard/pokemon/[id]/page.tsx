@@ -5,12 +5,13 @@ interface Props {
   params: { id: string }
 }
 
-export async function generateMetada({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
-  const { id, name } = await getPokemon(params.id)
+  const { id } = await params;
+  const  {id: pokemonId, name} = await getPokemon(id)
 
   return {
-    title: `#${id} - ${name}`,
+    title: `#${pokemonId} - ${name}`,
     description: `Página del pokemon ${name}`
   }
 }
@@ -27,7 +28,8 @@ const getPokemon = async (id: string): Promise<Pokemon> => {
 
 export default async function PokemonPage({ params }: Props) {
 
-  const pokemon = await getPokemon(params.id)
+  const { id } = await params;
+  const pokemon = await getPokemon(id)
 
   return (
     <div>
