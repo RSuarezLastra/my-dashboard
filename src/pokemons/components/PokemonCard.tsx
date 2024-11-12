@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { IoIosStarOutline } from "react-icons/io";
-import { SimplePokemon } from '@/app/pokemons';
+import { SimplePokemon } from '@/pokemons';
 
 
 export const PokemonCard = ({ id, name }: SimplePokemon) => {
