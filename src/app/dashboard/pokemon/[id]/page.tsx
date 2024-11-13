@@ -4,7 +4,14 @@ import { Pokemon } from "@/pokemons";
 import { notFound } from "next/navigation";
 
 interface Props {
-  params: { id: string }
+  params: Promise<{ id: string }>;
+}
+
+export async function generateStaticParams() {
+
+  const static151Pokemons = Array.from({ length: 151 }).map((v, i) => `${i + 1}`)
+
+  return static151Pokemons.map(id => ({ id: id }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -19,6 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
   } catch (error) {
+    console.log(error);
+
     return {
       title: 'Página del pokemon',
       description: 'Pagina del pokmeon description'
@@ -29,7 +38,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const getPokemon = async (id: string): Promise<Pokemon> => {
   try {
     const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
-      cache: 'force-cache'
+      next: {
+        revalidate: 60 * 60 * 30 * 6
+      }
     })
       .then(res => res.json());
 
@@ -37,6 +48,7 @@ const getPokemon = async (id: string): Promise<Pokemon> => {
 
   } catch (error) {
     notFound();
+    console.log(error);
   }
 }
 

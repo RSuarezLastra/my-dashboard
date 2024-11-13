@@ -16,7 +16,7 @@ const getPokemons = async (limit: number = 20, offset: number = 0): Promise<Simp
 
 export default async function PokemonsPage() {
 
-  const pokemons = await getPokemons(100);
+  const pokemons = await getPokemons(151);
 
   return (
     <div className="flex flex-col p-2">
