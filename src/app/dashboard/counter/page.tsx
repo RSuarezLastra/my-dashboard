@@ -5,7 +5,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: 'Counter pager',
-  description: 'Un simple ocntador'
+  description: 'Un simple contador'
 }
 
 export default function CounterPage() {
