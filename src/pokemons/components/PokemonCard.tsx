@@ -2,14 +2,20 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { toggleFavorite } from "@/store/pokemons/pokemonsSlice";
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
 import { SimplePokemon } from '@/pokemons';
-import { useAppSelector } from "@/store";
 
 
 export const PokemonCard = ({ id, name }: SimplePokemon) => {
 
+  const dispatch = useAppDispatch();
   const isFavorite = useAppSelector(state => !!state.pokemons[id]);
+
+  const onToggle = () => {
+    dispatch(toggleFavorite({ id, name }));
+  }
 
   return (
     <div className="mx-auto right-0 mt-2 w-60">
@@ -32,21 +38,27 @@ export const PokemonCard = ({ id, name }: SimplePokemon) => {
           </div>
         </div>
         <div className="border-b">
-          <Link href="/account/campaigns" className="px-4 py-2 hover:bg-gray-100 flex items-center">
+          <div
+            onClick={onToggle}
+            className="px-4 py-2 hover:bg-gray-100 flex items-center cursor-pointer">
             <div className="text-red-500">
               {
-                isFavorite 
-                ? <IoHeart />
-                : <IoHeartOutline/>
+                isFavorite
+                  ? <IoHeart />
+                  : <IoHeartOutline />
               }
             </div>
             <div className="pl-3">
               <p className="text-sm font-medium text-gray-800 leading-none">
-                Favoritos
+                {
+                  isFavorite
+                    ? 'Favorito'
+                    : 'No Favorito'
+                }
               </p>
               <p className="text-xs text-gray-500">View your campaigns</p>
             </div>
-          </Link>
+          </div>
         </div>
       </div>
     </div>
