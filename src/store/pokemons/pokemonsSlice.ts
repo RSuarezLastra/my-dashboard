@@ -7,14 +7,14 @@ interface PokemonsFavorite {
 
 
 const initialState: PokemonsFavorite = {
-  '1': {id: '1', name: 'bulbasour'}
+  '1': {id: '1', name: 'bulbasour'},
 }
 
 const pokemonsSlice = createSlice({
   name: 'pokemons',
   initialState,
   reducers: {
-    
+
   }
 });
 
