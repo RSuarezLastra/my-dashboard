@@ -5,9 +5,14 @@ interface PokemonsFavorite {
   [key: string]: SimplePokemon;
 }
 
+const getInitialState = (): PokemonsFavorite => {
+  const favorites = JSON.parse(localStorage.getItem('pokemons-favorites') ?? '{}' )
+
+  return favorites;
+}
 
 const initialState: PokemonsFavorite = {
-  '1': { id: '1', name: 'bulbasour' },
+  ...getInitialState()
 }
 
 const pokemonsSlice = createSlice({
@@ -17,11 +22,14 @@ const pokemonsSlice = createSlice({
     toggleFavorite(state, action: PayloadAction<SimplePokemon>) {
       const pokemon = action.payload;
       const { id } = pokemon;
+
       if (!!state[id]) {
         delete state[id];
-        return;
+      }else{
+        state[id] = pokemon;
       }
-      state[id] = pokemon;
+
+      localStorage.setItem( 'pokemons-favorites' ,JSON.stringify(state));
     }
   }
 });
