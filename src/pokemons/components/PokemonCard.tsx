@@ -11,7 +11,7 @@ import { SimplePokemon } from '@/pokemons';
 export const PokemonCard = ({ id, name }: SimplePokemon) => {
 
   const dispatch = useAppDispatch();
-  const isFavorite = useAppSelector(state => !!state.pokemons[id]);
+  const isFavorite = useAppSelector(state => !!state.pokemons.favorites[id]);
 
   const onToggle = () => {
     dispatch(toggleFavorite({ id, name }));

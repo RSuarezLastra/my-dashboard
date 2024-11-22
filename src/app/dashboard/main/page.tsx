@@ -1,4 +1,4 @@
-import { SimpleWidget, WidgetGrid } from "@/app/components";
+import { WidgetGrid } from "@/app/components";
 
 
 

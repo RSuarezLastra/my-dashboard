@@ -1,15 +1,16 @@
-import { Action, Dispatch, Middleware } from "@reduxjs/toolkit";
+import { Action, Middleware } from "@reduxjs/toolkit";
 import { RootState } from "..";
 
 
-export const localStorageMiddleware = (store) => {
+export const localStorageMiddleware: Middleware = (store) => {
   return (next) => (action) => {
 
     next(action);
+    const { type } = action as Action;
 
-    if (action.type === 'pokemons/toggleFavorite') {
+    if (type === 'pokemons/toggleFavorite') {
       const { pokemons } = store.getState() as RootState
-      localStorage.setItem( 'pokemons-favorites' ,JSON.stringify(pokemons));
+      localStorage.setItem('pokemons-favorites', JSON.stringify(pokemons));
       return;
     }
 

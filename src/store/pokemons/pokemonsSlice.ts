@@ -2,38 +2,42 @@ import { SimplePokemon } from '@/pokemons';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface PokemonsFavorite {
-  [key: string]: SimplePokemon;
+  favorites: { [key: string]: SimplePokemon };
 }
 
-const getInitialState = (): PokemonsFavorite => {
-  const favorites = JSON.parse(localStorage.getItem('pokemons-favorites') ?? '{}' )
+// const getInitialState = (): PokemonsFavorite => {
+//   const favorites = JSON.parse(localStorage.getItem('pokemons-favorites') ?? '{}' )
 
-  return favorites;
-}
+//   return favorites;
+// }
 
 const initialState: PokemonsFavorite = {
-  ...getInitialState()
+  // ...getInitialState()
+  favorites: {}
 }
 
 const pokemonsSlice = createSlice({
   name: 'pokemons',
   initialState,
   reducers: {
+
+    setFavorites(state, action: PayloadAction<{ [key: string]: SimplePokemon }>) {
+      state.favorites = action.payload
+    },
+
     toggleFavorite(state, action: PayloadAction<SimplePokemon>) {
       const pokemon = action.payload;
       const { id } = pokemon;
 
-      if (!!state[id]) {
-        delete state[id];
-      }else{
-        state[id] = pokemon;
+      if (!!state.favorites[id]) {
+        delete state.favorites[id];
+      } else {
+        state.favorites[id] = pokemon;
       }
-
-      localStorage.setItem( 'pokemons-favorites' ,JSON.stringify(state));
     }
   }
 });
 
-export const { toggleFavorite } = pokemonsSlice.actions
+export const { toggleFavorite, setFavorites } = pokemonsSlice.actions
 
 export default pokemonsSlice.reducer

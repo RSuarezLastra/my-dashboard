@@ -2,7 +2,7 @@
 
 import { useAppSelector } from "@/store"
 import { SimpleWidget } from "./SimpleWidget"
-import { IoCafeOutline, IoCalculator, IoCartOutline } from "react-icons/io5"
+import { IoCartOutline } from "react-icons/io5"
 
 export const WidgetGrid = () => {
 
