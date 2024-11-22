@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import counterReducer from './counter/counterSlice';
 import pokemonsReducer from './pokemons/pokemonsSlice';
+import { localStorageMiddleware } from './middlewares/localstorage-middleware';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     pokemons: pokemonsReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+  .concat(localStorageMiddleware)
 })
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
